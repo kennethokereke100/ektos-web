@@ -42,14 +42,17 @@ export default function ProductDemo() {
           See Phantom Search and offline AI in action.
         </p>
 
-        {/* Tabs with Title + Description */}
-        <div className="flex justify-center space-x-16 mb-10">
+        {/* Tabs */}
+        {/* Desktop: show all tabs */}
+        <div className="hidden md:flex justify-center space-x-16 mb-10">
           {slides.map((slide, index) => (
             <button
               key={index}
               onClick={() => setCurrent(index)}
               className={`flex flex-col items-center max-w-xs ${
-                current === index ? "text-gray-900" : "text-gray-500 hover:text-gray-700"
+                current === index
+                  ? "text-gray-900"
+                  : "text-gray-500 hover:text-gray-700"
               }`}
             >
               <span className="font-serif text-lg">
@@ -67,6 +70,18 @@ export default function ProductDemo() {
               ></div>
             </button>
           ))}
+        </div>
+
+        {/* Mobile/Tablet: only show active tab centered */}
+        <div className="md:hidden mb-10">
+          <div className="flex flex-col items-center text-center">
+            <span className="font-serif text-lg text-gray-900 pb-1 border-b-2 border-gray-900">
+              {slides[current].title}
+            </span>
+            <span className="mt-2 text-sm text-gray-600 leading-snug max-w-sm">
+              {slides[current].description}
+            </span>
+          </div>
         </div>
 
         {/* Demo Container */}
@@ -114,6 +129,19 @@ export default function ProductDemo() {
               />
             </svg>
           </button>
+        </div>
+
+        {/* Dot Indicators */}
+        <div className="flex justify-center mt-6 space-x-3">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrent(index)}
+              className={`w-3 h-3 rounded-full transition ${
+                current === index ? "bg-gray-800" : "bg-gray-300 hover:bg-gray-400"
+              }`}
+            ></button>
+          ))}
         </div>
       </div>
     </section>

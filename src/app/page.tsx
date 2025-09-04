@@ -1,33 +1,56 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import design from "./designsystem.json";
 import ProductDemo from "./ProductDemo";
+import Upsell from "./upsell";
 
 export default function Page() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className={`${design.grid.container} ${design.grid.header}`} style={{ paddingTop: design.spacing.headerPadding, paddingBottom: design.spacing.headerPadding }}>
-        <div className="flex items-center space-x-6">
-          <div className="flex items-center space-x-2">
-            <span className="text-2xl font-medium text-gray-900">◎</span>
-            <span className="text-xl font-medium text-gray-900">Ektos</span>
+      <header
+        className={`sticky top-0 z-50 w-full bg-white border-b border-gray-200 transition-shadow duration-300 ${
+          scrolled ? "shadow-sm" : ""
+        }`}
+        style={{
+          paddingTop: design.spacing.headerPadding,
+          paddingBottom: design.spacing.headerPadding,
+        }}
+      >
+        <div className={`${design.grid.container} flex justify-between items-center`}>
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-2">
+              <span className="text-2xl font-medium text-gray-900">◎</span>
+              <span className="text-xl font-medium text-gray-900">Ektos</span>
+            </div>
+            <a href="#" className="text-gray-700 hover:text-gray-900 font-medium">
+              Docs - coming soon
+            </a>
           </div>
-          <a href="#" className="text-gray-700 hover:text-gray-900 font-medium">Docs - coming soon</a>
-        </div>
-        
-        <div className="flex items-center space-x-3">
-          {/* <button
-            className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors duration-200"
-            style={{ boxShadow: design.shadows.button }}
-          >
-            Console
-          </button> */}
-          <button
-            className="px-4 py-2 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors duration-200"
-            style={{ boxShadow: design.shadows.button }}
-          >
-            Join Waitlist
-          </button>
+
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={() => {
+                const el = document.getElementById("waitlist");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="px-4 py-2 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors duration-200"
+              style={{ boxShadow: design.shadows.button }}
+            >
+              Join Waitlist
+            </button>
+          </div>
         </div>
       </header>
 
@@ -69,13 +92,14 @@ export default function Page() {
         </p>
 
         {/* Waitlist Form */}
-        <div className="mt-8 flex items-center space-x-3 w-full max-w-md">
+        <div id="hero-waitlist" className="mt-8 flex items-center space-x-3 w-full max-w-md">
           <input
             type="email"
             placeholder="Enter your email"
             className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 bg-white text-gray-900 placeholder-gray-500 text-base font-medium"
             style={{
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)"
+              boxShadow:
+                "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
             }}
           />
           <button
@@ -90,6 +114,9 @@ export default function Page() {
 
       {/* Product Demo Section */}
       <ProductDemo />
+
+      {/* Upsell Section */}
+      <Upsell />
     </div>
   );
 }

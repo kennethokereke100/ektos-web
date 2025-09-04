@@ -19,8 +19,32 @@
   }
 }
 
+@layer base {
+  html, body {
+    height: 100%;
+    overscroll-behavior: none; /* prevent all overscroll */
+    background-color: #ffffff;  /* force white page background only */
+    background: #ffffff;
+  }
+
+  /* Prevent black background on viewport */
+  html {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    scroll-behavior: smooth;
+  }
+
+  /* Ensure body covers full viewport */
+  body {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    min-height: 100vh;
+  }
+}
+
 body {
-  background: var(--background);
+  background: #ffffff !important;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
