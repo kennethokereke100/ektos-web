@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import design from "./designsystem.json";
 import ProductDemo from "./ProductDemo";
 import Upsell from "./upsell";
+import Footer from "./Footer";
 
 export default function Page() {
   const [scrolled, setScrolled] = useState(false);
@@ -17,7 +18,7 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
       <header
         className={`sticky top-0 z-50 w-full bg-white border-b border-gray-200 transition-shadow duration-300 ${
@@ -117,6 +118,9 @@ export default function Page() {
 
       {/* Upsell Section */}
       <Upsell />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
